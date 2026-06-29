@@ -195,11 +195,98 @@
     .stat strong { display: block; margin-bottom: 10px; font-size: 38px; line-height: 1; font-weight: 900; }
     .stat span { font-size: 20px; line-height: 1.35; color: var(--muted); font-weight: 500; }
 
+    .model-slide .stat { min-height: 126px; padding-top: 18px; }
+    .model-slide .stat strong { font-size: 28px; line-height: 1.14; }
+    .model-slide .stat span { font-size: 18px; line-height: 1.34; }
+    .model-chart { height: 520px !important; margin-top: 22px !important; }
+    .model-chart img { padding: 0 !important; }
+
+    .xgb-slide .split { grid-template-columns:560px 1fr; gap:64px; }
+    .xgb-legend {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 34px;
+    }
+    .xgb-chip {
+      border-top: 4px solid var(--teal);
+      padding-top: 15px;
+      min-height: 118px;
+    }
+    .xgb-chip strong {
+      display: block;
+      font-size: 26px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .xgb-chip span {
+      display: block;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.36;
+      font-weight: 600;
+    }
+    .xgb-chip.green { border-color: var(--green); }
+    .xgb-chip.orange { border-color: var(--orange); }
+    .xgb-chip.red { border-color: var(--red); }
+    .xgb-plot {
+      height: 650px;
+      background: #fff;
+    }
+    .xgb-plot img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 18px;
+    }
+
     .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
     .time-card { background: #fff; border: 1px solid var(--line); padding: 20px; min-height: 380px; }
     .time-card img { width: 100%; height: 198px; object-fit: cover; border: 1px solid var(--line); margin-bottom: 16px; }
     .time-card h3 { font-size: 29px; margin-bottom: 10px; }
     .time-card p { font-size: 19px; line-height: 1.42; color: var(--muted); font-weight: 500; }
+
+    .ai-step-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      align-self: center;
+    }
+    .ai-step-card {
+      border-top: 4px solid var(--teal);
+      padding-top: 18px;
+      min-height: 590px;
+    }
+    .ai-step-card .num {
+      display: block;
+      font: 700 20px/1 var(--mono);
+      color: #2f7c9b;
+      margin-bottom: 18px;
+    }
+    .ai-step-card h3 {
+      font-size: 25px;
+      line-height: 1.2;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .ai-step-card p {
+      min-height: 92px;
+      font-size: 17px;
+      line-height: 1.42;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .ai-step-card img {
+      width: 100%;
+      height: 360px;
+      object-fit: contain;
+      object-position: center center;
+      display: block;
+      margin-top: 16px;
+      border: 1px solid #bed1da;
+      background: #fff;
+      box-shadow: 0 18px 48px rgba(36,72,94,.12);
+    }
 
     .title-slide .title-block { position: absolute; left: 96px; top: 210px; width: 760px; }
     .title-slide .media { position: absolute; right: 82px; top: 150px; width: 840px; height: 610px; }
@@ -267,6 +354,7 @@
     .slide.visible .lead,
     .slide.visible .accent-line,
     .slide.visible .image-frame,
+    .slide.visible .ai-step-card,
     .slide.visible .card,
     .slide.visible .flow-card,
     .slide.visible .stat,
@@ -284,18 +372,22 @@
     .slide.visible .image-frame,
     .slide.visible .quote-mark { animation-delay: .20s; }
     .slide.visible .card:nth-child(1),
+    .slide.visible .ai-step-card:nth-child(1),
     .slide.visible .flow-card:nth-child(1),
     .slide.visible .stat:nth-child(1),
     .slide.visible .time-card:nth-child(1) { animation-delay: .18s; }
     .slide.visible .card:nth-child(2),
+    .slide.visible .ai-step-card:nth-child(2),
     .slide.visible .flow-card:nth-child(2),
     .slide.visible .stat:nth-child(2),
     .slide.visible .time-card:nth-child(2) { animation-delay: .25s; }
     .slide.visible .card:nth-child(3),
+    .slide.visible .ai-step-card:nth-child(3),
     .slide.visible .flow-card:nth-child(3),
     .slide.visible .stat:nth-child(3),
     .slide.visible .time-card:nth-child(3) { animation-delay: .32s; }
     .slide.visible .card:nth-child(4),
+    .slide.visible .ai-step-card:nth-child(4),
     .slide.visible .flow-card:nth-child(4),
     .slide.visible .stat:nth-child(4),
     .slide.visible .time-card:nth-child(4) { animation-delay: .39s; }
@@ -336,7 +428,7 @@
 <body>
   <div class="deck-viewport">
     <main class="deck-stage" id="deckStage">
-      <section class="slide title-slide active visible" data-page="01 / 16">
+      <section class="slide title-slide active visible" data-page="01 / 17">
         <div class="topline"><span>우수주의보</span><span>이미지·센서 기반 빗물받이 위험도 모니터링</span></div>
         <div class="title-block">
           <h1 class="title-xl">SmartDrain</h1>
@@ -351,7 +443,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="02 / 16">
+      <section class="slide" data-page="02 / 17">
         <div class="topline"><span>01 문제 제기</span><span>도시 침수는 작은 배수 지점에서 시작됩니다</span></div>
         <div class="split">
           <div>
@@ -363,7 +455,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="03 / 16">
+      <section class="slide" data-page="03 / 17">
         <div class="topline"><span>02 현장 문제</span><span>막힘 요인은 계속 바뀝니다</span></div>
         <div class="center">
           <div class="label">FIELD FACTORS</div>
@@ -376,7 +468,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="04 / 16">
+      <section class="slide" data-page="04 / 17">
         <div class="topline"><span>03 기존 방식의 한계</span><span>점검과 신고만으로는 즉시 대응하기 어렵습니다</span></div>
         <div class="split">
           <div>
@@ -393,7 +485,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="05 / 16">
+      <section class="slide" data-page="05 / 17">
         <div class="topline"><span>04 접근 방식</span><span>이미지와 센서를 함께 읽습니다</span></div>
         <div class="center" style="left:120px; right:120px;">
           <div class="label">SMARTDRAIN APPROACH</div>
@@ -407,7 +499,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="06 / 16">
+      <section class="slide" data-page="06 / 17">
         <div class="topline"><span>05 차별점</span><span>관리 범위를 개별 시설로 좁힙니다</span></div>
         <div class="split" style="grid-template-columns:610px 1fr;">
           <div>
@@ -424,7 +516,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="07 / 16">
+      <section class="slide" data-page="07 / 17">
         <div class="topline"><span>06 서비스 흐름</span><span>관리자는 위험 시설을 선택하고 근거를 확인합니다</span></div>
         <div class="center" style="left:96px; right:96px;">
           <div class="label">SERVICE FLOW</div>
@@ -439,7 +531,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="08 / 16">
+      <section class="slide" data-page="08 / 17">
         <div class="topline"><span>07 메인 대시보드</span><span>지도와 목록으로 위험 시설을 한눈에 봅니다</span></div>
         <div class="split" style="grid-template-columns:610px 1fr;">
           <div>
@@ -451,7 +543,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="09 / 16">
+      <section class="slide" data-page="09 / 17">
         <div class="topline"><span>08 시설 상세 화면</span><span>판단 근거를 한 화면에 모읍니다</span></div>
         <div class="split" style="grid-template-columns:590px 1fr;">
           <div>
@@ -463,7 +555,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="10 / 16">
+      <section class="slide" data-page="10 / 17">
         <div class="topline"><span>09 AI 분석</span><span>이미지 분석 결과를 위험도 판단으로 연결합니다</span></div>
         <div class="split" style="grid-template-columns:650px 1fr;">
           <div>
@@ -471,32 +563,74 @@
             <h2 class="title-lg" style="margin-top: 34px;">YOLO가 막힘 영역을 찾고, XGBoost가 최종 등급을 판단합니다.</h2>
             <p class="lead" style="margin-top: 48px;">시각적 막힘 비율과 센서 값을 결합해 양호, 주의, 위험, 판단불가로 분류합니다.</p>
           </div>
-          <figure class="image-frame ai-crop" style="height:590px;"><img src="assets/yolo-process.jpg" alt="YOLO와 OpenCV 분석 과정"></figure>
+          <div class="ai-step-grid">
+            <div class="ai-step-card">
+              <span class="num">01</span>
+              <h3>원본 이미지</h3>
+              <p>현장 사진을 기준으로 빗물받이 막힘 상태를 확인합니다.</p>
+              <img src="assets/ai-step-01-original.jpg" alt="빗물받이 원본 이미지">
+            </div>
+            <div class="ai-step-card">
+              <span class="num">02</span>
+              <h3>OpenCV 전처리</h3>
+              <p>대비와 경계를 보정해 분석 가능한 입력으로 정리합니다.</p>
+              <img src="assets/ai-step-02-opencv.jpg" alt="OpenCV 전처리 결과">
+            </div>
+            <div class="ai-step-card">
+              <span class="num">03</span>
+              <h3>YOLO 검출</h3>
+              <p>쓰레기와 낙엽 등 막힘 후보 영역을 객체 검출로 찾습니다.</p>
+              <img src="assets/ai-step-03-yolo.jpg" alt="YOLO 막힘 영역 검출 결과">
+            </div>
+            <div class="ai-step-card">
+              <span class="num">04</span>
+              <h3>차폐율 계산</h3>
+              <p>검출 결과를 면적으로 환산해 XGBoost 판단에 연결합니다.</p>
+              <img src="assets/ai-step-04-mask.jpg" alt="차폐율 계산 마스크 결과">
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="slide" data-page="11 / 16">
+      <section class="slide model-slide" data-page="11 / 17">
         <div class="topline"><span>10 모델 선택</span><span>정확도뿐 아니라 안정성을 함께 봅니다</span></div>
-        <div class="split" style="grid-template-columns:620px 1fr;">
+        <div class="split" style="grid-template-columns:500px 1fr; gap:54px;">
           <div>
             <div class="label">MODEL DECISION</div>
             <h2 class="title-lg" style="margin-top: 34px;">최종 모델은 정확도만이 아니라 안정성으로 결정했습니다.</h2>
-            <p class="lead" style="margin-top: 48px;">8m 61ep 모델을 학습 안정성과 박스 정합도 측면에서 현재 적용 후보로 정리했습니다.</p>
+            <p class="lead" style="margin-top: 48px;">8m 분할 학습 모델을 학습 안정성과 박스 정합도 측면에서 현재 적용 후보로 정리했습니다.</p>
           </div>
           <div>
-            <div class="stat-grid">
+            <div class="stat-grid model-stats">
               <div class="stat"><strong>8n</strong><span>가볍고 빠르지만 복잡한 쓰레기에 약함</span></div>
               <div class="stat"><strong>8s</strong><span>속도와 정확도의 균형 후보</span></div>
-              <div class="stat"><strong>8m 91</strong><span>고점은 있으나 학습 불안정</span></div>
-              <div class="stat"><strong>8m 61</strong><span>현재 적용 후보로 가장 안정적</span></div>
+              <div class="stat"><strong>8m 단일 학습</strong><span>고점은 있으나 학습 불안정</span></div>
+              <div class="stat"><strong>8m 분할 학습</strong><span>현재 적용 후보로 가장 안정적</span></div>
             </div>
-            <figure class="image-frame contain" style="height:340px; margin-top:26px;"><img src="assets/ai-error.png" alt="AI 모델 검증 그래프"></figure>
+            <figure class="image-frame contain model-chart"><img src="assets/ai-error.png" alt="AI 모델 검증 그래프"></figure>
           </div>
         </div>
       </section>
 
-      <section class="slide" data-page="12 / 16">
-        <div class="topline"><span>11 시스템 아키텍처</span><span>분석과 화면 갱신을 분리했습니다</span></div>
+      <section class="slide xgb-slide" data-page="12 / 17">
+        <div class="topline"><span>11 XGBoost 데이터 기준</span><span>입력 변수 공간에서 위험도 라벨을 검증합니다</span></div>
+        <div class="split">
+          <div>
+            <div class="label">XGBOOST FEATURES</div>
+            <h2 class="title-lg" style="margin-top: 34px;">차폐율, 수위, 유속 조합으로 위험도 군집을 확인했습니다.</h2>
+            <p class="lead" style="margin-top: 42px;">현재 MVP는 샘플 이미지와 모의 센서 데이터를 사용해 위험도 분류 흐름을 검증합니다.</p>
+            <div class="xgb-legend">
+              <div class="xgb-chip green"><strong>양호</strong><span>낮은 차폐율과 안정적인 유속 구간</span></div>
+              <div class="xgb-chip orange"><strong>주의</strong><span>중간 차폐율 또는 수위 상승 구간</span></div>
+              <div class="xgb-chip red"><strong>위험</strong><span>높은 차폐율과 배수 저하 가능 구간</span></div>
+            </div>
+          </div>
+          <figure class="image-frame xgb-plot"><img src="assets/xgboost-3d-clusters.png" alt="XGBoost 입력 변수 3D 군집 시각화"></figure>
+        </div>
+      </section>
+
+      <section class="slide" data-page="13 / 17">
+        <div class="topline"><span>12 시스템 아키텍처</span><span>분석과 화면 갱신을 분리했습니다</span></div>
         <div class="split" style="grid-template-columns:570px 1fr;">
           <div>
             <div class="label">SYSTEM ARCHITECTURE</div>
@@ -507,8 +641,8 @@
         </div>
       </section>
 
-      <section class="slide" data-page="13 / 16">
-        <div class="topline"><span>12 비동기 처리</span><span>분석 대기와 화면 반영을 분리합니다</span></div>
+      <section class="slide" data-page="14 / 17">
+        <div class="topline"><span>13 비동기 처리</span><span>분석 대기와 화면 반영을 분리합니다</span></div>
         <div class="split" style="grid-template-columns:610px 1fr;">
           <div>
             <div class="label">ASYNC ANALYSIS</div>
@@ -519,8 +653,8 @@
         </div>
       </section>
 
-      <section class="slide" data-page="14 / 16">
-        <div class="topline"><span>13 시연 데이터</span><span>네 가지 상태를 시간 흐름으로 보여줍니다</span></div>
+      <section class="slide" data-page="15 / 17">
+        <div class="topline"><span>14 시연 데이터</span><span>네 가지 상태를 시간 흐름으로 보여줍니다</span></div>
         <div style="position:absolute; left:92px; right:92px; top:150px;">
           <div class="label">DEMO SCENARIO</div>
           <h2 class="title-md" style="margin-top:30px; width:1180px;">양호에서 위험, 판단불가까지 상태 변화가 화면에 반영됩니다.</h2>
@@ -533,8 +667,8 @@
         </div>
       </section>
 
-      <section class="slide" data-page="15 / 16">
-        <div class="topline"><span>14 기대 효과</span><span>MVP에서 현장 운영 자동화로</span></div>
+      <section class="slide" data-page="16 / 17">
+        <div class="topline"><span>15 기대 효과</span><span>MVP에서 현장 운영 자동화로</span></div>
         <div class="center" style="left:120px; right:120px;">
           <div class="label">MVP TO OPERATIONS</div>
           <h2 class="title-lg">현재는 위험도 확인 MVP, 다음은 현장 운영 자동화입니다.</h2>
@@ -546,8 +680,8 @@
         </div>
       </section>
 
-      <section class="slide" data-page="16 / 16">
-        <div class="topline"><span>15 팀 구성</span><span>Q&A</span></div>
+      <section class="slide" data-page="17 / 17">
+        <div class="topline"><span>16 팀 구성</span><span>Q&A</span></div>
         <div class="split" style="grid-template-columns:790px 1fr;">
           <div>
             <div class="label">TEAM 우수주의보</div>
