@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SmartDrain 발표자료</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --stage-bg: #dfe8ee;
+      --paper: #f7f4ee;
+      --ink: #132033;
+      --muted: #586f7d;
+      --line: #cbd8dd;
+      --teal: #0b88a8;
+      --teal-soft: #d9eef1;
+      --orange: #e49a45;
+      --orange-soft: #f7e4cb;
+      --green: #6eaa88;
+      --green-soft: #dfeee5;
+      --red: #d84c4c;
+      --red-soft: #f3d5d5;
+      --mono: "IBM Plex Mono", monospace;
+      --sans: "Noto Sans KR", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: var(--stage-bg); }
+    body { font-family: var(--sans); color: var(--ink); word-break: keep-all; }
+
+    .deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--stage-bg); }
+    .deck-stage {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      transform-origin: 0 0;
+      background: var(--paper);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(28,80,116,.08) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(28,80,116,.08) 1px, transparent 1px),
+        var(--paper);
+      background-size: 64px 64px;
+      transition: opacity .28s ease;
+    }
+    .slide.active, .slide.visible { visibility: visible; opacity: 1; pointer-events: auto; z-index: 1; }
+    .slide::after {
+      content: attr(data-page);
+      position: absolute;
+      right: 86px;
+      bottom: 54px;
+      font: 700 18px/1 var(--mono);
+      color: #8ca2ad;
+    }
+
+    .topline {
+      position: absolute;
+      left: 86px;
+      right: 86px;
+      top: 58px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 21px;
+      font-weight: 800;
+      color: #255b7a;
+    }
+    .label { font: 700 19px/1 var(--mono); color: var(--teal); letter-spacing: .02em; }
+    .title-xl { font-size: 112px; line-height: 1.04; font-weight: 900; letter-spacing: 0; }
+    .title-lg { font-size: 78px; line-height: 1.08; font-weight: 900; letter-spacing: 0; }
+    .title-md { font-size: 58px; line-height: 1.14; font-weight: 900; letter-spacing: 0; }
+    .lead { font-size: 34px; line-height: 1.55; color: var(--muted); font-weight: 500; }
+    .small { font-size: 23px; line-height: 1.5; color: var(--muted); }
+    .accent-line { width: 530px; height: 10px; background: linear-gradient(90deg, var(--teal), #86bfc8, var(--orange)); }
+
+    .split {
+      position: absolute;
+      left: 92px;
+      right: 92px;
+      top: 146px;
+      bottom: 104px;
+      display: grid;
+      grid-template-columns: 650px 1fr;
+      gap: 76px;
+      align-items: center;
+    }
+    .center {
+      position: absolute;
+      left: 190px;
+      right: 190px;
+      top: 150px;
+      bottom: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 40px;
+      text-align: center;
+    }
+
+    .image-frame {
+      background: #fff;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      box-shadow: 0 28px 80px rgba(36,72,94,.16);
+    }
+    .image-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .image-frame.contain img { object-fit: contain; padding: 24px; background: #fff; }
+
+    .cards-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .cards-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .cards-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    .card {
+      min-height: 198px;
+      padding: 24px 6px 0;
+      background: transparent;
+      border-top: 4px solid var(--teal);
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 0;
+    }
+    .card.green { border-top-color: var(--green); }
+    .card.orange { border-top-color: var(--orange); }
+    .card.red { border-top-color: var(--red); }
+    .card h3 { font-size: 34px; line-height: 1.2; margin-bottom: 14px; font-weight: 900; }
+    .card p { font-size: 22px; line-height: 1.42; color: var(--muted); font-weight: 500; }
+
+    .quote-mark {
+      width: 650px;
+      height: 650px;
+      border: 16px solid var(--teal-soft);
+      display: grid;
+      place-items: center;
+      color: var(--teal);
+      font-size: 220px;
+      font-weight: 900;
+      margin-left: auto;
+    }
+
+    .compare {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,.74);
+      border: 1px solid var(--line);
+    }
+    .compare th {
+      padding: 22px 24px;
+      font-size: 24px;
+      color: #fff;
+      background: #18334a;
+      text-align: left;
+    }
+    .compare td {
+      padding: 23px 24px;
+      border-top: 1px solid var(--line);
+      font-size: 27px;
+      font-weight: 700;
+    }
+    .compare td:first-child { color: var(--muted); font-size: 24px; font-weight: 800; }
+
+    .flow-card {
+      min-height: 215px;
+      padding: 22px 4px 0;
+      background: transparent;
+      border: 0;
+      border-top: 4px solid var(--teal);
+    }
+    .flow-card::before {
+      content: attr(data-step);
+      display: block;
+      margin-bottom: 20px;
+      font: 700 23px/1 var(--mono);
+      color: var(--teal);
+    }
+    .flow-card h3 { font-size: 28px; margin-bottom: 12px; }
+    .flow-card p { font-size: 20px; line-height: 1.42; color: var(--muted); font-weight: 500; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .stat { padding: 22px 4px 0; background: transparent; border-top: 4px solid var(--teal); min-height: 152px; }
+    .stat strong { display: block; margin-bottom: 10px; font-size: 38px; line-height: 1; font-weight: 900; }
+    .stat span { font-size: 20px; line-height: 1.35; color: var(--muted); font-weight: 500; }
+
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .time-card { background: #fff; border: 1px solid var(--line); padding: 20px; min-height: 380px; }
+    .time-card img { width: 100%; height: 198px; object-fit: cover; border: 1px solid var(--line); margin-bottom: 16px; }
+    .time-card h3 { font-size: 29px; margin-bottom: 10px; }
+    .time-card p { font-size: 19px; line-height: 1.42; color: var(--muted); font-weight: 500; }
+
+    .title-slide .title-block { position: absolute; left: 96px; top: 210px; width: 760px; }
+    .title-slide .media { position: absolute; right: 82px; top: 150px; width: 840px; height: 610px; }
+    .title-slide .metrics { position: absolute; right: 82px; bottom: 92px; width: 840px; }
+
+    .ai-crop {
+      position: relative;
+    }
+    .ai-crop::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 92px;
+      z-index: 2;
+      background: #111820;
+    }
+    .ai-crop img {
+      transform: scale(1.25) translateY(-14%);
+      transform-origin: center center;
+    }
+
+    .qr {
+      position: absolute;
+      right: 86px;
+      bottom: 92px;
+      width: 175px;
+      height: 175px;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid var(--line);
+    }
+
+    @media print {
+      html, body { width: 1920px; height: auto; overflow: visible; background: #fff; }
+      .deck-viewport { position: static; overflow: visible; background: #fff; }
+      .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
+      .slide {
+        position: relative;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: 1920px;
+        height: 1080px;
+        break-after: page;
+        page-break-after: always;
+      }
+      .slide:last-child { break-after: auto; page-break-after: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck-viewport">
+    <main class="deck-stage" id="deckStage">
+      <section class="slide title-slide active visible" data-page="01 / 16">
+        <div class="topline"><span>우수주의보</span><span>이미지·센서 기반 빗물받이 위험도 모니터링</span></div>
+        <div class="title-block">
+          <h1 class="title-xl">SmartDrain</h1>
+          <p class="lead" style="margin-top: 92px;">강우 중 빠르게 변하는 빗물받이 상태를 이미지 분석과 센서 데이터로 판단하고, 관리자가 먼저 볼 시설을 보여주는 MVP입니다.</p>
+          <div class="accent-line" style="margin-top: 92px;"></div>
+        </div>
+        <figure class="image-frame media"><img src="assets/dashboard.png" alt="SmartDrain 대시보드"></figure>
+        <div class="cards-3 metrics">
+          <div class="card"><h3>실시간</h3><p>지도 기반 상태 확인</p></div>
+          <div class="card"><h3>AI 판단</h3><p>막힘·수위·유속 통합</p></div>
+          <div class="card"><h3>우선순위</h3><p>위험 시설 선별</p></div>
+        </div>
+      </section>
+
+      <section class="slide" data-page="02 / 16">
+        <div class="topline"><span>01 문제 제기</span><span>도시 침수는 작은 배수 지점에서 시작됩니다</span></div>
+        <div class="split">
+          <div>
+            <div class="label">WHY IT MATTERS</div>
+            <h2 class="title-lg" style="margin-top: 34px;">빗물받이 하나가 막히면 도로의 배수 흐름이 달라집니다.</h2>
+            <p class="lead" style="margin-top: 56px;">집중호우 상황에서는 작은 막힘도 물 고임과 침수 위험으로 빠르게 번질 수 있습니다.</p>
+          </div>
+          <div class="quote-mark">!</div>
+        </div>
+      </section>
+
+      <section class="slide" data-page="03 / 16">
+        <div class="topline"><span>02 현장 문제</span><span>막힘 요인은 계속 바뀝니다</span></div>
+        <div class="center">
+          <div class="label">FIELD FACTORS</div>
+          <h2 class="title-lg">낙엽, 쓰레기, 담배꽁초, 비닐, 토사가 유입부를 가립니다.</h2>
+          <div class="cards-3" style="text-align:left;">
+            <div class="card green"><h3>유입</h3><p>강우와 함께 이물질이 빗물받이 주변으로 모입니다.</p></div>
+            <div class="card orange"><h3>차폐</h3><p>막힘 비율이 높아질수록 배수 효율이 떨어집니다.</p></div>
+            <div class="card red"><h3>위험</h3><p>수위 상승과 유속 저하가 동시에 나타날 수 있습니다.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-page="04 / 16">
+        <div class="topline"><span>03 기존 방식의 한계</span><span>점검과 신고만으로는 즉시 대응하기 어렵습니다</span></div>
+        <div class="split">
+          <div>
+            <div class="label">CURRENT LIMIT</div>
+            <h2 class="title-lg" style="margin-top: 34px;">기존 관리는 발견 이후의 대응에 가깝습니다.</h2>
+            <p class="lead" style="margin-top: 54px;">정기 점검, 신고·QR, 센서 설치는 각각 장점이 있지만 강우 중 개별 시설 변화를 즉시 설명하기 어렵습니다.</p>
+          </div>
+          <table class="compare">
+            <tr><th>방식</th><th>장점</th><th>남는 한계</th></tr>
+            <tr><td>정기 점검</td><td>기본 유지관리</td><td>반복 작업 부담</td></tr>
+            <tr><td>신고·QR</td><td>현장 문제 접수</td><td>발견 시점 의존</td></tr>
+            <tr><td>센서 설치</td><td>정량 데이터 확보</td><td>비용·유지보수 부담</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="slide" data-page="05 / 16">
+        <div class="topline"><span>04 접근 방식</span><span>이미지와 센서를 함께 읽습니다</span></div>
+        <div class="center" style="left:120px; right:120px;">
+          <div class="label">SMARTDRAIN APPROACH</div>
+          <h2 class="title-lg">현장 이미지를 보고, 센서 흐름을 확인하고, AI가 위험도를 분류합니다.</h2>
+          <div class="cards-4" style="text-align:left;">
+            <div class="flow-card" data-step="01"><h3>이미지</h3><p>YOLO와 OpenCV로 막힘 영역을 분석합니다.</p></div>
+            <div class="flow-card" data-step="02"><h3>센서</h3><p>수위와 유속 데이터를 같은 시설 기준으로 묶습니다.</p></div>
+            <div class="flow-card" data-step="03"><h3>AI</h3><p>XGBoost가 최종 위험도를 판단합니다.</p></div>
+            <div class="flow-card" data-step="04"><h3>화면</h3><p>관리자 대시보드에 상태와 근거를 반영합니다.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-page="06 / 16">
+        <div class="topline"><span>05 차별점</span><span>관리 범위를 개별 시설로 좁힙니다</span></div>
+        <div class="split" style="grid-template-columns:610px 1fr;">
+          <div>
+            <div class="label">WHAT CHANGES</div>
+            <h2 class="title-lg" style="margin-top: 34px;">사람이 먼저 찾는 방식에서, 시스템이 먼저 알려주는 방식으로.</h2>
+          </div>
+          <table class="compare">
+            <tr><th>구분</th><th>기존 방식</th><th>SmartDrain</th></tr>
+            <tr><td>문제 발견</td><td>점검·신고 중심</td><td>이미지·센서 기반 확인</td></tr>
+            <tr><td>판단 방식</td><td>사람 확인</td><td>AI 위험도 판단</td></tr>
+            <tr><td>관리 단위</td><td>구역·민원 중심</td><td>개별 빗물받이 중심</td></tr>
+            <tr><td>결과 활용</td><td>접수·처리</td><td>점검 우선순위 제안</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="slide" data-page="07 / 16">
+        <div class="topline"><span>06 서비스 흐름</span><span>관리자는 위험 시설을 선택하고 근거를 확인합니다</span></div>
+        <div class="center" style="left:96px; right:96px;">
+          <div class="label">SERVICE FLOW</div>
+          <h2 class="title-lg">현황 확인에서 상세 근거까지 한 흐름으로 연결합니다.</h2>
+          <div class="cards-5" style="text-align:left;">
+            <div class="flow-card" data-step="01"><h3>현황 확인</h3><p>상태별 시설 수와 지도 마커를 확인합니다.</p></div>
+            <div class="flow-card" data-step="02"><h3>위험 선택</h3><p>위험도 기준으로 시설 목록을 좁힙니다.</p></div>
+            <div class="flow-card" data-step="03"><h3>근거 확인</h3><p>이미지, 센서, AI 판단 근거를 봅니다.</p></div>
+            <div class="flow-card" data-step="04"><h3>상태 갱신</h3><p>분석 결과가 화면에 반영됩니다.</p></div>
+            <div class="flow-card" data-step="05"><h3>조치 판단</h3><p>점검 우선순위를 결정합니다.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-page="08 / 16">
+        <div class="topline"><span>07 메인 대시보드</span><span>지도와 목록으로 위험 시설을 한눈에 봅니다</span></div>
+        <div class="split" style="grid-template-columns:610px 1fr;">
+          <div>
+            <div class="label">MAIN DASHBOARD</div>
+            <h2 class="title-lg" style="margin-top: 34px;">상태 요약, 위험 지도, 시설 목록을 한 화면에 배치했습니다.</h2>
+            <p class="lead" style="margin-top: 48px;">운영자는 먼저 봐야 할 시설을 지도와 목록에서 동시에 확인합니다.</p>
+          </div>
+          <figure class="image-frame" style="height:640px;"><img src="assets/dashboard.png" alt="메인 대시보드"></figure>
+        </div>
+      </section>
+
+      <section class="slide" data-page="09 / 16">
+        <div class="topline"><span>08 시설 상세 화면</span><span>판단 근거를 한 화면에 모읍니다</span></div>
+        <div class="split" style="grid-template-columns:590px 1fr;">
+          <div>
+            <div class="label">DETAIL VIEW</div>
+            <h2 class="title-lg" style="margin-top: 34px;">한 시설의 현재 상태와 판단 근거를 동시에 봅니다.</h2>
+            <p class="lead" style="margin-top: 48px;">이미지 분석, 수위·유속 추세, AI 결과, 상태 이력을 함께 보여줍니다.</p>
+          </div>
+          <figure class="image-frame" style="height:640px;"><img src="assets/detail.png" alt="시설 상세 화면"></figure>
+        </div>
+      </section>
+
+      <section class="slide" data-page="10 / 16">
+        <div class="topline"><span>09 AI 분석</span><span>이미지 분석 결과를 위험도 판단으로 연결합니다</span></div>
+        <div class="split" style="grid-template-columns:650px 1fr;">
+          <div>
+            <div class="label">AI PIPELINE</div>
+            <h2 class="title-lg" style="margin-top: 34px;">YOLO가 막힘 영역을 찾고, XGBoost가 최종 등급을 판단합니다.</h2>
+            <p class="lead" style="margin-top: 48px;">시각적 막힘 비율과 센서 값을 결합해 양호, 주의, 위험, 판단불가로 분류합니다.</p>
+          </div>
+          <figure class="image-frame ai-crop" style="height:590px;"><img src="assets/yolo-process.jpg" alt="YOLO와 OpenCV 분석 과정"></figure>
+        </div>
+      </section>
+
+      <section class="slide" data-page="11 / 16">
+        <div class="topline"><span>10 모델 선택</span><span>정확도뿐 아니라 안정성을 함께 봅니다</span></div>
+        <div class="split" style="grid-template-columns:620px 1fr;">
+          <div>
+            <div class="label">MODEL DECISION</div>
+            <h2 class="title-lg" style="margin-top: 34px;">최종 모델은 정확도만이 아니라 안정성으로 결정했습니다.</h2>
+            <p class="lead" style="margin-top: 48px;">8m 61ep 모델을 학습 안정성과 박스 정합도 측면에서 현재 적용 후보로 정리했습니다.</p>
+          </div>
+          <div>
+            <div class="stat-grid">
+              <div class="stat"><strong>8n</strong><span>가볍고 빠르지만 복잡한 쓰레기에 약함</span></div>
+              <div class="stat"><strong>8s</strong><span>속도와 정확도의 균형 후보</span></div>
+              <div class="stat"><strong>8m 91</strong><span>고점은 있으나 학습 불안정</span></div>
+              <div class="stat"><strong>8m 61</strong><span>현재 적용 후보로 가장 안정적</span></div>
+            </div>
+            <figure class="image-frame contain" style="height:340px; margin-top:26px;"><img src="assets/ai-error.png" alt="AI 모델 검증 그래프"></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-page="12 / 16">
+        <div class="topline"><span>11 시스템 아키텍처</span><span>분석과 화면 갱신을 분리했습니다</span></div>
+        <div class="split" style="grid-template-columns:570px 1fr;">
+          <div>
+            <div class="label">SYSTEM ARCHITECTURE</div>
+            <h2 class="title-lg" style="margin-top: 34px;">프론트엔드, 백엔드, AI 서비스, DB를 분리해 MVP를 구성했습니다.</h2>
+            <p class="lead" style="margin-top: 48px;">Next.js, FastAPI, PostgreSQL, AI Service, WebSocket이 핵심 연결 축입니다.</p>
+          </div>
+          <figure class="image-frame contain" style="height:650px;"><img src="assets/architecture.png" alt="SmartDrain 시스템 아키텍처"></figure>
+        </div>
+      </section>
+
+      <section class="slide" data-page="13 / 16">
+        <div class="topline"><span>12 비동기 처리</span><span>분석 대기와 화면 반영을 분리합니다</span></div>
+        <div class="split" style="grid-template-columns:610px 1fr;">
+          <div>
+            <div class="label">ASYNC ANALYSIS</div>
+            <h2 class="title-lg" style="margin-top: 34px;">분석 요청은 작업으로 추적하고, 결과는 실시간으로 반영합니다.</h2>
+            <p class="lead" style="margin-top: 48px;">사용자는 결과를 기다리며 멈추지 않고, 화면은 최신 상태로 동기화됩니다.</p>
+          </div>
+          <figure class="image-frame contain" style="height:650px;"><img src="assets/sequence.png" alt="WebSocket과 callback 시퀀스"></figure>
+        </div>
+      </section>
+
+      <section class="slide" data-page="14 / 16">
+        <div class="topline"><span>13 시연 데이터</span><span>네 가지 상태를 시간 흐름으로 보여줍니다</span></div>
+        <div style="position:absolute; left:92px; right:92px; top:150px;">
+          <div class="label">DEMO SCENARIO</div>
+          <h2 class="title-md" style="margin-top:30px; width:1180px;">양호에서 위험, 판단불가까지 상태 변화가 화면에 반영됩니다.</h2>
+          <div class="timeline" style="margin-top:42px;">
+            <div class="time-card"><img src="assets/state-good.png" alt="양호 상태"><h3>10:00 양호</h3><p>수위 20cm, 유속 0.90m/s, 차폐율 12%</p></div>
+            <div class="time-card"><img src="assets/state-caution.png" alt="주의 상태"><h3>10:10 주의</h3><p>수위 50cm, 유속 0.40m/s, 차폐율 45%</p></div>
+            <div class="time-card"><img src="assets/state-danger.png" alt="위험 상태"><h3>10:20 위험</h3><p>수위 85cm, 유속 0.15m/s, 차폐율 84%</p></div>
+            <div class="time-card"><img src="assets/state-unknown.png" alt="판단불가 상태"><h3>10:30 판단불가</h3><p>이미지 분석 실패나 결측은 별도 상태로 관리</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-page="15 / 16">
+        <div class="topline"><span>14 기대 효과</span><span>MVP에서 현장 운영 자동화로</span></div>
+        <div class="center" style="left:120px; right:120px;">
+          <div class="label">MVP TO OPERATIONS</div>
+          <h2 class="title-lg">현재는 위험도 확인 MVP, 다음은 현장 운영 자동화입니다.</h2>
+          <div class="cards-3" style="text-align:left;">
+            <div class="card"><h3>현재 MVP</h3><p>시설별 현황, 지도, 상세 근거, AI 결과를 통합 조회합니다.</p></div>
+            <div class="card green"><h3>운영 확장</h3><p>RTSP CCTV와 IoT 센서 연동으로 실시간성을 높입니다.</p></div>
+            <div class="card orange"><h3>의사결정</h3><p>알림, 리포트, LLM 요약으로 관리자 판단 시간을 줄입니다.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-page="16 / 16">
+        <div class="topline"><span>15 팀 구성</span><span>Q&A</span></div>
+        <div class="split" style="grid-template-columns:790px 1fr;">
+          <div>
+            <div class="label">TEAM 우수주의보</div>
+            <h2 class="title-xl" style="margin-top:34px;">Q&A</h2>
+            <p class="lead" style="margin-top:58px;">이미지·센서 기반 빗물받이 위험도 모니터링 시스템 SmartDrain입니다.</p>
+            <div class="accent-line" style="margin-top:76px;"></div>
+          </div>
+          <div class="cards-2" style="align-self:center; padding-right:210px;">
+            <div class="card"><h3>송희수</h3><p>PM · AI</p></div>
+            <div class="card"><h3>이명근</h3><p>Backend</p></div>
+            <div class="card"><h3>오택률</h3><p>Frontend · 발표</p></div>
+            <div class="card"><h3>김윤섭</h3><p>AI</p></div>
+          </div>
+          <img class="qr" src="assets/qr-code.png" alt="GitHub 또는 Demo QR 코드">
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    class SlidePresentation {
+      constructor() {
+        this.slides = Array.from(document.querySelectorAll(".slide"));
+        this.stage = document.getElementById("deckStage");
+        this.currentSlide = 0;
+        this.init();
+      }
+      init() {
+        this.scaleStage();
+        this.bindEvents();
+        this.showSlide(0);
+        window.addEventListener("resize", () => this.scaleStage());
+      }
+      scaleStage() {
+        const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+        const width = 1920 * scale;
+        const height = 1080 * scale;
+        this.stage.style.transform = `translate(${(window.innerWidth - width) / 2}px, ${(window.innerHeight - height) / 2}px) scale(${scale})`;
+      }
+      bindEvents() {
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowRight" || event.key === " " || event.key === "PageDown") this.next();
+          if (event.key === "ArrowLeft" || event.key === "PageUp") this.prev();
+          if (event.key === "Home") this.showSlide(0);
+          if (event.key === "End") this.showSlide(this.slides.length - 1);
+        });
+        let startX = 0;
+        window.addEventListener("pointerdown", (event) => { startX = event.clientX; });
+        window.addEventListener("pointerup", (event) => {
+          const delta = event.clientX - startX;
+          if (Math.abs(delta) > 80) delta < 0 ? this.next() : this.prev();
+        });
+      }
+      showSlide(index) {
+        this.currentSlide = Math.max(0, Math.min(index, this.slides.length - 1));
+        this.slides.forEach((slide, slideIndex) => {
+          const isActive = slideIndex === this.currentSlide;
+          slide.classList.toggle("active", isActive);
+          slide.classList.toggle("visible", isActive);
+        });
+      }
+      next() { this.showSlide(this.currentSlide + 1); }
+      prev() { this.showSlide(this.currentSlide - 1); }
+    }
+    new SlidePresentation();
+  </script>
+</body>
+</html>
