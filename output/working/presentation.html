@@ -114,9 +114,9 @@
 
     .image-frame {
       background: #fff;
-      border: 1px solid var(--line);
+      border: 1px solid #bed1da;
       overflow: hidden;
-      box-shadow: 0 28px 80px rgba(36,72,94,.16);
+      box-shadow: 0 30px 80px rgba(36,72,94,.18);
     }
     .image-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .image-frame.contain img { object-fit: contain; padding: 24px; background: #fff; }
@@ -214,24 +214,91 @@
       left: 0;
       right: 0;
       top: 0;
-      height: 92px;
+      height: 86px;
       z-index: 2;
       background: #111820;
+    }
+    .ai-crop::after {
+      content: "OpenCV 전처리  ·  YOLO 검출  ·  차폐율 계산";
+      position: absolute;
+      left: 28px;
+      top: 30px;
+      z-index: 3;
+      color: #dfe8ee;
+      font: 700 20px/1 var(--mono);
+      letter-spacing: .02em;
     }
     .ai-crop img {
       transform: scale(1.25) translateY(-14%);
       transform-origin: center center;
     }
 
-    .qr {
+    .qr-wrap {
       position: absolute;
       right: 86px;
       bottom: 92px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .qr {
       width: 175px;
       height: 175px;
       background: #fff;
       padding: 10px;
       border: 1px solid var(--line);
+    }
+    .qr-label {
+      color: #255b7a;
+      font-size: 19px;
+      font-weight: 900;
+    }
+
+    .slide.visible .topline,
+    .slide.visible .label,
+    .slide.visible h1,
+    .slide.visible h2,
+    .slide.visible .lead,
+    .slide.visible .accent-line,
+    .slide.visible .image-frame,
+    .slide.visible .card,
+    .slide.visible .flow-card,
+    .slide.visible .stat,
+    .slide.visible .time-card,
+    .slide.visible .compare,
+    .slide.visible .quote-mark,
+    .slide.visible .qr-wrap {
+      animation: rise .78s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .slide.visible .label { animation-delay: .04s; }
+    .slide.visible h1,
+    .slide.visible h2 { animation-delay: .08s; }
+    .slide.visible .lead,
+    .slide.visible .compare { animation-delay: .16s; }
+    .slide.visible .image-frame,
+    .slide.visible .quote-mark { animation-delay: .20s; }
+    .slide.visible .card:nth-child(1),
+    .slide.visible .flow-card:nth-child(1),
+    .slide.visible .stat:nth-child(1),
+    .slide.visible .time-card:nth-child(1) { animation-delay: .18s; }
+    .slide.visible .card:nth-child(2),
+    .slide.visible .flow-card:nth-child(2),
+    .slide.visible .stat:nth-child(2),
+    .slide.visible .time-card:nth-child(2) { animation-delay: .25s; }
+    .slide.visible .card:nth-child(3),
+    .slide.visible .flow-card:nth-child(3),
+    .slide.visible .stat:nth-child(3),
+    .slide.visible .time-card:nth-child(3) { animation-delay: .32s; }
+    .slide.visible .card:nth-child(4),
+    .slide.visible .flow-card:nth-child(4),
+    .slide.visible .stat:nth-child(4),
+    .slide.visible .time-card:nth-child(4) { animation-delay: .39s; }
+    .slide.visible .flow-card:nth-child(5) { animation-delay: .46s; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media print {
@@ -250,6 +317,14 @@
         page-break-after: always;
       }
       .slide:last-child { break-after: auto; page-break-after: auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+      }
     }
   </style>
 </head>
@@ -481,7 +556,10 @@
             <div class="card"><h3>오택률</h3><p>Frontend · 발표</p></div>
             <div class="card"><h3>김윤섭</h3><p>AI</p></div>
           </div>
-          <img class="qr" src="assets/qr-code.png" alt="GitHub 또는 Demo QR 코드">
+          <div class="qr-wrap">
+            <img class="qr" src="assets/qr-code.png" alt="GitHub 또는 Demo QR 코드">
+            <div class="qr-label">GitHub / Demo</div>
+          </div>
         </div>
       </section>
     </main>
