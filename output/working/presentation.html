@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SmartDrain 발표자료</title>
+  <title>우수주의보 발표자료</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -226,7 +226,7 @@
     .xgb-slide .split { grid-template-columns:560px 1fr; gap:64px; }
     .xgb-legend {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
       margin-top: 34px;
     }
@@ -251,6 +251,7 @@
     .xgb-chip.green { border-color: var(--green); }
     .xgb-chip.orange { border-color: var(--orange); }
     .xgb-chip.red { border-color: var(--red); }
+    .xgb-chip.gray { border-color: #9aa8af; }
     .xgb-plot {
       height: 650px;
       background: #fff;
@@ -327,7 +328,7 @@
     }
     .ai-step-card {
       border-top: 4px solid var(--teal);
-      padding-top: 18px;
+      padding-top: 22px;
       min-height: 590px;
     }
     .ai-step-card .num {
@@ -340,7 +341,7 @@
       font-size: 25px;
       line-height: 1.2;
       font-weight: 900;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .ai-step-card p {
       min-height: 92px;
@@ -364,6 +365,39 @@
     .title-slide .title-block { position: absolute; left: 96px; top: 210px; width: 760px; }
     .title-slide .media { position: absolute; right: 82px; top: 150px; width: 840px; height: 610px; }
     .title-slide .metrics { position: absolute; right: 82px; bottom: 92px; width: 840px; }
+
+    .agenda-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      margin-top: 58px;
+      text-align: left;
+    }
+    .agenda-item {
+      min-height: 238px;
+      padding: 24px 8px 0;
+      border-top: 4px solid var(--teal);
+    }
+    .agenda-item:nth-child(3n + 2) { border-top-color: var(--green); }
+    .agenda-item:nth-child(3n) { border-top-color: var(--orange); }
+    .agenda-item strong {
+      display: block;
+      margin-bottom: 28px;
+      color: #2f7c9b;
+      font: 700 22px/1 var(--mono);
+    }
+    .agenda-item h3 {
+      font-size: 30px;
+      line-height: 1.22;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .agenda-item p {
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.42;
+      font-weight: 600;
+    }
 
     .ai-crop {
       position: relative;
@@ -429,6 +463,7 @@
     .slide.visible .image-frame,
     .slide.visible .ai-step-card,
     .slide.visible .demo-video-frame,
+    .slide.visible .agenda-item,
     .slide.visible .card,
     .slide.visible .flow-card,
     .slide.visible .stat,
@@ -502,10 +537,10 @@
 <body>
   <div class="deck-viewport">
     <main class="deck-stage" id="deckStage">
-      <section class="slide title-slide active visible" data-page="01 / 18">
-        <div class="topline"><span>우수주의보</span><span>이미지·센서 기반 빗물받이 위험도 모니터링</span></div>
+      <section class="slide title-slide active visible" data-page="01 / 19">
+        <div class="topline"><span></span><span>이미지·센서 기반 빗물받이 위험도 모니터링</span></div>
         <div class="title-block">
-          <h1 class="title-xl">SmartDrain</h1>
+          <h1 class="title-xl">우수주의보</h1>
           <p class="lead" style="margin-top: 92px;">강우 중 빠르게 변하는 빗물받이 상태를 이미지 분석과 센서 데이터로 판단하고, 관리자가 먼저 볼 시설을 보여주는 MVP입니다.</p>
           <div class="accent-line" style="margin-top: 92px;"></div>
         </div>
@@ -517,7 +552,25 @@
         </div>
       </section>
 
-      <section class="slide" data-page="02 / 18">
+      <section class="slide" data-page="02 / 19">
+        <div class="topline"><span>00 목차</span><span>발표 흐름은 8개 항목으로 정리합니다</span></div>
+        <div class="center" style="left:96px; right:96px; top:142px; bottom:110px;">
+          <div class="label">AGENDA</div>
+          <h2 class="title-md">문제 정의부터 시연 흐름까지 순서대로 설명합니다.</h2>
+          <div class="agenda-grid">
+            <div class="agenda-item"><strong>01</strong><h3>문제 제기</h3><p>도시 침수와 빗물받이 막힘의 연결</p></div>
+            <div class="agenda-item"><strong>02</strong><h3>접근 방식</h3><p>이미지와 센서 데이터를 결합하는 방식</p></div>
+            <div class="agenda-item"><strong>03</strong><h3>서비스 화면</h3><p>대시보드와 시설 상세 화면 흐름</p></div>
+            <div class="agenda-item"><strong>04</strong><h3>AI 분석</h3><p>YOLO, OpenCV, XGBoost 판단 흐름</p></div>
+            <div class="agenda-item"><strong>05</strong><h3>데이터 기준</h3><p>위험도 라벨과 모의 센서 데이터 기준</p></div>
+            <div class="agenda-item"><strong>06</strong><h3>시스템 구조</h3><p>아키텍처와 비동기 처리 방식</p></div>
+            <div class="agenda-item"><strong>07</strong><h3>시연 구성</h3><p>상태 변화와 YouTube 시연 영상 자리</p></div>
+            <div class="agenda-item"><strong>08</strong><h3>기대 효과</h3><p>MVP 이후 운영 확장 방향</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-page="03 / 19">
         <div class="topline"><span>01 문제 제기</span><span>도시 침수는 작은 배수 지점에서 시작됩니다</span></div>
         <div class="split">
           <div>
@@ -532,7 +585,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="03 / 18">
+      <section class="slide" data-page="04 / 19">
         <div class="topline"><span>02 현장 문제</span><span>막힘 요인은 계속 바뀝니다</span></div>
         <div class="center">
           <div class="label">FIELD FACTORS</div>
@@ -545,7 +598,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="04 / 18">
+      <section class="slide" data-page="05 / 19">
         <div class="topline"><span>03 기존 방식의 한계</span><span>점검과 신고만으로는 즉시 대응하기 어렵습니다</span></div>
         <div class="split">
           <div>
@@ -562,7 +615,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="05 / 18">
+      <section class="slide" data-page="06 / 19">
         <div class="topline"><span>04 접근 방식</span><span>이미지와 센서를 함께 읽습니다</span></div>
         <div class="center" style="left:120px; right:120px;">
           <div class="label">SMARTDRAIN APPROACH</div>
@@ -576,7 +629,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="06 / 18">
+      <section class="slide" data-page="07 / 19">
         <div class="topline"><span>05 차별점</span><span>관리 범위를 개별 시설로 좁힙니다</span></div>
         <div class="split" style="grid-template-columns:610px 1fr;">
           <div>
@@ -593,7 +646,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="07 / 18">
+      <section class="slide" data-page="08 / 19">
         <div class="topline"><span>06 서비스 흐름</span><span>관리자는 위험 시설을 선택하고 근거를 확인합니다</span></div>
         <div class="center" style="left:96px; right:96px;">
           <div class="label">SERVICE FLOW</div>
@@ -608,7 +661,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="08 / 18">
+      <section class="slide" data-page="09 / 19">
         <div class="topline"><span>07 메인 대시보드</span><span>지도와 목록으로 위험 시설을 한눈에 봅니다</span></div>
         <div class="split" style="grid-template-columns:610px 1fr;">
           <div>
@@ -620,7 +673,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="09 / 18">
+      <section class="slide" data-page="10 / 19">
         <div class="topline"><span>08 시설 상세 화면</span><span>판단 근거를 한 화면에 모읍니다</span></div>
         <div class="split" style="grid-template-columns:590px 1fr;">
           <div>
@@ -632,7 +685,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="10 / 18">
+      <section class="slide" data-page="11 / 19">
         <div class="topline"><span>09 AI 분석</span><span>이미지 분석 결과를 위험도 판단으로 연결합니다</span></div>
         <div class="split" style="grid-template-columns:650px 1fr;">
           <div>
@@ -642,25 +695,21 @@
           </div>
           <div class="ai-step-grid">
             <div class="ai-step-card">
-              <span class="num">01</span>
               <h3>원본 이미지</h3>
               <p>현장 사진을 기준으로 빗물받이 막힘 상태를 확인합니다.</p>
               <img src="assets/ai-step-01-original.jpg" alt="빗물받이 원본 이미지">
             </div>
             <div class="ai-step-card">
-              <span class="num">02</span>
               <h3>OpenCV 전처리</h3>
               <p>대비와 경계를 보정해 분석 가능한 입력으로 정리합니다.</p>
               <img src="assets/ai-step-02-opencv.jpg" alt="OpenCV 전처리 결과">
             </div>
             <div class="ai-step-card">
-              <span class="num">03</span>
               <h3>YOLO 검출</h3>
               <p>쓰레기와 낙엽 등 막힘 후보 영역을 객체 검출로 찾습니다.</p>
               <img src="assets/ai-step-03-yolo.jpg" alt="YOLO 막힘 영역 검출 결과">
             </div>
             <div class="ai-step-card">
-              <span class="num">04</span>
               <h3>차폐율 계산</h3>
               <p>검출 결과를 면적으로 환산해 XGBoost 판단에 연결합니다.</p>
               <img src="assets/ai-step-04-mask.jpg" alt="차폐율 계산 마스크 결과">
@@ -669,7 +718,7 @@
         </div>
       </section>
 
-      <section class="slide model-slide" data-page="11 / 18">
+      <section class="slide model-slide" data-page="12 / 19">
         <div class="topline"><span>10 모델 선택</span><span>정확도뿐 아니라 안정성을 함께 봅니다</span></div>
         <div class="split" style="grid-template-columns:500px 1fr; gap:54px;">
           <div>
@@ -689,7 +738,7 @@
         </div>
       </section>
 
-      <section class="slide xgb-slide" data-page="12 / 18">
+      <section class="slide xgb-slide" data-page="13 / 19">
         <div class="topline"><span>11 XGBoost 데이터 기준</span><span>입력 변수 공간에서 위험도 라벨을 검증합니다</span></div>
         <div class="split">
           <div>
@@ -700,13 +749,14 @@
               <div class="xgb-chip green"><strong>양호</strong><span>낮은 차폐율과 안정적인 유속 구간</span></div>
               <div class="xgb-chip orange"><strong>주의</strong><span>중간 차폐율 또는 수위 상승 구간</span></div>
               <div class="xgb-chip red"><strong>위험</strong><span>높은 차폐율과 배수 저하 가능 구간</span></div>
+              <div class="xgb-chip gray"><strong>판단불가</strong><span>결측 또는 이미지 분석 실패 구간</span></div>
             </div>
           </div>
           <figure class="image-frame xgb-plot"><img src="assets/xgboost-3d-clusters.png" alt="XGBoost 입력 변수 3D 군집 시각화"></figure>
         </div>
       </section>
 
-      <section class="slide" data-page="13 / 18">
+      <section class="slide" data-page="14 / 19">
         <div class="topline"><span>12 시스템 아키텍처</span><span>분석과 화면 갱신을 분리했습니다</span></div>
         <div class="split" style="grid-template-columns:570px 1fr;">
           <div>
@@ -718,7 +768,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="14 / 18">
+      <section class="slide" data-page="15 / 19">
         <div class="topline"><span>13 비동기 처리</span><span>분석 대기와 화면 반영을 분리합니다</span></div>
         <div class="split" style="grid-template-columns:610px 1fr;">
           <div>
@@ -730,7 +780,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="15 / 18">
+      <section class="slide" data-page="16 / 19">
         <div class="topline"><span>14 시연 데이터</span><span>네 가지 상태를 시간 흐름으로 보여줍니다</span></div>
         <div style="position:absolute; left:92px; right:92px; top:150px;">
           <div class="label">DEMO SCENARIO</div>
@@ -744,7 +794,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="16 / 18">
+      <section class="slide" data-page="17 / 19">
         <div class="topline"><span>15 시연 영상</span><span>최종 발표 전 YouTube 링크를 연결합니다</span></div>
         <div class="split" style="grid-template-columns:570px 1fr;">
           <div>
@@ -767,7 +817,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="17 / 18">
+      <section class="slide" data-page="18 / 19">
         <div class="topline"><span>16 기대 효과</span><span>MVP에서 현장 운영 자동화로</span></div>
         <div class="center" style="left:120px; right:120px;">
           <div class="label">MVP TO OPERATIONS</div>
@@ -780,7 +830,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="18 / 18">
+      <section class="slide" data-page="19 / 19">
         <div class="topline"><span>17 팀 구성</span><span>Q&A</span></div>
         <div class="split" style="grid-template-columns:790px 1fr;">
           <div>
