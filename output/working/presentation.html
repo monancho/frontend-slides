@@ -151,6 +151,28 @@
       font-weight: 900;
       margin-left: auto;
     }
+    .issue-evidence {
+      width: 760px;
+      margin-left: auto;
+      border-top: 4px solid var(--teal);
+      padding-top: 24px;
+    }
+    .issue-evidence img {
+      width: 100%;
+      height: 428px;
+      object-fit: cover;
+      display: block;
+      border: 1px solid #bed1da;
+      background: #fff;
+      box-shadow: 0 28px 72px rgba(36,72,94,.18);
+    }
+    .issue-evidence figcaption {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
 
     .compare {
       width: 100%;
@@ -238,6 +260,57 @@
       height: 100%;
       object-fit: contain;
       padding: 18px;
+    }
+
+    .demo-video-frame {
+      border-top: 4px solid var(--teal);
+      padding-top: 28px;
+      min-height: 560px;
+    }
+    .video-slot {
+      height: 410px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed #8fb4c2;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 24px 70px rgba(36,72,94,.12);
+    }
+    .video-slot strong {
+      display: block;
+      color: var(--ink);
+      font-size: 40px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .video-slot span {
+      color: var(--muted);
+      font-size: 22px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .video-meta {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 24px;
+      margin-top: 24px;
+      align-items: start;
+    }
+    .video-meta .url-box,
+    .video-meta .qr-box {
+      border-top: 4px solid var(--orange);
+      padding-top: 16px;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.42;
+      font-weight: 600;
+    }
+    .video-meta strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--ink);
+      font-size: 26px;
+      font-weight: 900;
     }
 
     .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -355,6 +428,7 @@
     .slide.visible .accent-line,
     .slide.visible .image-frame,
     .slide.visible .ai-step-card,
+    .slide.visible .demo-video-frame,
     .slide.visible .card,
     .slide.visible .flow-card,
     .slide.visible .stat,
@@ -428,7 +502,7 @@
 <body>
   <div class="deck-viewport">
     <main class="deck-stage" id="deckStage">
-      <section class="slide title-slide active visible" data-page="01 / 17">
+      <section class="slide title-slide active visible" data-page="01 / 18">
         <div class="topline"><span>우수주의보</span><span>이미지·센서 기반 빗물받이 위험도 모니터링</span></div>
         <div class="title-block">
           <h1 class="title-xl">SmartDrain</h1>
@@ -443,7 +517,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="02 / 17">
+      <section class="slide" data-page="02 / 18">
         <div class="topline"><span>01 문제 제기</span><span>도시 침수는 작은 배수 지점에서 시작됩니다</span></div>
         <div class="split">
           <div>
@@ -451,11 +525,14 @@
             <h2 class="title-lg" style="margin-top: 34px;">빗물받이 하나가 막히면 도로의 배수 흐름이 달라집니다.</h2>
             <p class="lead" style="margin-top: 56px;">집중호우 상황에서는 작은 막힘도 물 고임과 침수 위험으로 빠르게 번질 수 있습니다.</p>
           </div>
-          <div class="quote-mark">!</div>
+          <figure class="issue-evidence">
+            <img src="assets/kbs-drain-news.jpg" alt="빗물받이 쓰레기 막힘 관련 KBS 뉴스 썸네일">
+            <figcaption>출처: KBS News, https://www.youtube.com/watch?v=zJ6YUlvd_oI</figcaption>
+          </figure>
         </div>
       </section>
 
-      <section class="slide" data-page="03 / 17">
+      <section class="slide" data-page="03 / 18">
         <div class="topline"><span>02 현장 문제</span><span>막힘 요인은 계속 바뀝니다</span></div>
         <div class="center">
           <div class="label">FIELD FACTORS</div>
@@ -468,7 +545,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="04 / 17">
+      <section class="slide" data-page="04 / 18">
         <div class="topline"><span>03 기존 방식의 한계</span><span>점검과 신고만으로는 즉시 대응하기 어렵습니다</span></div>
         <div class="split">
           <div>
@@ -485,7 +562,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="05 / 17">
+      <section class="slide" data-page="05 / 18">
         <div class="topline"><span>04 접근 방식</span><span>이미지와 센서를 함께 읽습니다</span></div>
         <div class="center" style="left:120px; right:120px;">
           <div class="label">SMARTDRAIN APPROACH</div>
@@ -499,7 +576,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="06 / 17">
+      <section class="slide" data-page="06 / 18">
         <div class="topline"><span>05 차별점</span><span>관리 범위를 개별 시설로 좁힙니다</span></div>
         <div class="split" style="grid-template-columns:610px 1fr;">
           <div>
@@ -516,7 +593,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="07 / 17">
+      <section class="slide" data-page="07 / 18">
         <div class="topline"><span>06 서비스 흐름</span><span>관리자는 위험 시설을 선택하고 근거를 확인합니다</span></div>
         <div class="center" style="left:96px; right:96px;">
           <div class="label">SERVICE FLOW</div>
@@ -531,7 +608,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="08 / 17">
+      <section class="slide" data-page="08 / 18">
         <div class="topline"><span>07 메인 대시보드</span><span>지도와 목록으로 위험 시설을 한눈에 봅니다</span></div>
         <div class="split" style="grid-template-columns:610px 1fr;">
           <div>
@@ -543,7 +620,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="09 / 17">
+      <section class="slide" data-page="09 / 18">
         <div class="topline"><span>08 시설 상세 화면</span><span>판단 근거를 한 화면에 모읍니다</span></div>
         <div class="split" style="grid-template-columns:590px 1fr;">
           <div>
@@ -555,7 +632,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="10 / 17">
+      <section class="slide" data-page="10 / 18">
         <div class="topline"><span>09 AI 분석</span><span>이미지 분석 결과를 위험도 판단으로 연결합니다</span></div>
         <div class="split" style="grid-template-columns:650px 1fr;">
           <div>
@@ -592,7 +669,7 @@
         </div>
       </section>
 
-      <section class="slide model-slide" data-page="11 / 17">
+      <section class="slide model-slide" data-page="11 / 18">
         <div class="topline"><span>10 모델 선택</span><span>정확도뿐 아니라 안정성을 함께 봅니다</span></div>
         <div class="split" style="grid-template-columns:500px 1fr; gap:54px;">
           <div>
@@ -612,7 +689,7 @@
         </div>
       </section>
 
-      <section class="slide xgb-slide" data-page="12 / 17">
+      <section class="slide xgb-slide" data-page="12 / 18">
         <div class="topline"><span>11 XGBoost 데이터 기준</span><span>입력 변수 공간에서 위험도 라벨을 검증합니다</span></div>
         <div class="split">
           <div>
@@ -629,7 +706,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="13 / 17">
+      <section class="slide" data-page="13 / 18">
         <div class="topline"><span>12 시스템 아키텍처</span><span>분석과 화면 갱신을 분리했습니다</span></div>
         <div class="split" style="grid-template-columns:570px 1fr;">
           <div>
@@ -641,7 +718,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="14 / 17">
+      <section class="slide" data-page="14 / 18">
         <div class="topline"><span>13 비동기 처리</span><span>분석 대기와 화면 반영을 분리합니다</span></div>
         <div class="split" style="grid-template-columns:610px 1fr;">
           <div>
@@ -653,7 +730,7 @@
         </div>
       </section>
 
-      <section class="slide" data-page="15 / 17">
+      <section class="slide" data-page="15 / 18">
         <div class="topline"><span>14 시연 데이터</span><span>네 가지 상태를 시간 흐름으로 보여줍니다</span></div>
         <div style="position:absolute; left:92px; right:92px; top:150px;">
           <div class="label">DEMO SCENARIO</div>
@@ -667,8 +744,31 @@
         </div>
       </section>
 
-      <section class="slide" data-page="16 / 17">
-        <div class="topline"><span>15 기대 효과</span><span>MVP에서 현장 운영 자동화로</span></div>
+      <section class="slide" data-page="16 / 18">
+        <div class="topline"><span>15 시연 영상</span><span>최종 발표 전 YouTube 링크를 연결합니다</span></div>
+        <div class="split" style="grid-template-columns:570px 1fr;">
+          <div>
+            <div class="label">DEMO VIDEO</div>
+            <h2 class="title-lg" style="margin-top: 34px;">시연 영상 링크를 이 페이지에 배치할 예정입니다.</h2>
+            <p class="lead" style="margin-top: 48px;">서비스 접속, 위험도 분석 요청, 관리자 화면 갱신 흐름을 영상으로 확인할 수 있도록 연결합니다.</p>
+          </div>
+          <div class="demo-video-frame">
+            <div class="video-slot">
+              <div>
+                <strong>YouTube Demo</strong>
+                <span>영상 썸네일 또는 임베드 이미지 자리</span>
+              </div>
+            </div>
+            <div class="video-meta">
+              <div class="url-box"><strong>URL</strong>최종 YouTube 시연 영상 링크 입력 예정</div>
+              <div class="qr-box"><strong>QR</strong>영상 QR 코드 배치 예정</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-page="17 / 18">
+        <div class="topline"><span>16 기대 효과</span><span>MVP에서 현장 운영 자동화로</span></div>
         <div class="center" style="left:120px; right:120px;">
           <div class="label">MVP TO OPERATIONS</div>
           <h2 class="title-lg">현재는 위험도 확인 MVP, 다음은 현장 운영 자동화입니다.</h2>
@@ -680,8 +780,8 @@
         </div>
       </section>
 
-      <section class="slide" data-page="17 / 17">
-        <div class="topline"><span>16 팀 구성</span><span>Q&A</span></div>
+      <section class="slide" data-page="18 / 18">
+        <div class="topline"><span>17 팀 구성</span><span>Q&A</span></div>
         <div class="split" style="grid-template-columns:790px 1fr;">
           <div>
             <div class="label">TEAM 우수주의보</div>
