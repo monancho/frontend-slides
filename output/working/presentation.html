@@ -224,8 +224,8 @@
     .model-chart {
       height: 610px !important;
       margin-top: 22px !important;
-      border-top: 4px solid var(--teal);
-      box-shadow: 0 30px 76px rgba(36,72,94,.14);
+      border: 1px solid #bed1da;
+      box-shadow: 0 30px 80px rgba(36,72,94,.18);
     }
     .model-chart img {
       padding: 10px !important;
@@ -272,7 +272,7 @@
       padding: 18px;
     }
 
-    .erd-slide .split { grid-template-columns:430px 1fr; gap:42px; }
+    .erd-slide .split { grid-template-columns:390px 1fr; gap:52px; }
     .erd-notes {
       display: grid;
       gap: 14px;
@@ -298,10 +298,9 @@
     }
     .erd-frame {
       height: 740px;
-      background: rgba(255,255,255,.88);
+      background: #fff;
       border: 1px solid #bed1da;
-      border-top: 4px solid var(--teal);
-      box-shadow: 0 26px 78px rgba(36,72,94,.14);
+      box-shadow: 0 30px 80px rgba(36,72,94,.18);
       overflow: hidden;
     }
     .erd-frame img {
@@ -863,14 +862,11 @@
         <div class="split">
           <div>
             <div class="label">DATA MODEL</div>
-            <h2 class="title-md" style="margin-top: 34px;">센서·이미지·위험도를 같은 시설 기준으로 묶습니다.</h2>
-            <div class="erd-notes">
-              <div class="erd-note"><h3>시설 기준</h3><p>DRAIN_DATA를 중심으로 센서, YOLO, XGBoost 결과를 연결합니다.</p></div>
-              <div class="erd-note"><h3>판단 근거 분리</h3><p>센서 측정값과 이미지 분석 결과를 분리 저장합니다.</p></div>
-              <div class="erd-note"><h3>작업 관리</h3><p>ANALYSIS_JOBS가 요청 상태와 완료 저장 흐름을 관리합니다.</p></div>
-            </div>
+            <h2 class="title-md" style="margin-top: 34px;">시설 기준으로 판단 근거를 연결합니다.</h2>
+            <p class="lead" style="margin-top: 38px; font-size: 30px; line-height: 1.48;">센서 측정값, YOLO 결과, XGBoost 위험도를 같은 빗물받이 ID로 묶어 저장합니다.</p>
+            <div class="accent-line" style="width: 360px; margin-top: 46px;"></div>
           </div>
-          <figure class="erd-frame"><img src="assets/erd-diagram-light.png" alt="SmartDrain ERD 다이어그램"></figure>
+          <figure class="erd-frame"><img src="assets/erd-diagram-white.png" alt="SmartDrain ERD 다이어그램"></figure>
         </div>
       </section>
 
