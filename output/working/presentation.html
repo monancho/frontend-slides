@@ -81,9 +81,9 @@
       color: #255b7a;
     }
     .label { font: 700 19px/1 var(--mono); color: var(--teal); letter-spacing: .02em; }
-    .title-xl { font-size: 112px; line-height: 1.04; font-weight: 900; letter-spacing: 0; }
-    .title-lg { font-size: 78px; line-height: 1.08; font-weight: 900; letter-spacing: 0; }
-    .title-md { font-size: 58px; line-height: 1.14; font-weight: 900; letter-spacing: 0; }
+    .title-xl { font-size: 106px; line-height: 1.04; font-weight: 900; letter-spacing: 0; }
+    .title-lg { font-size: 72px; line-height: 1.08; font-weight: 900; letter-spacing: 0; }
+    .title-md { font-size: 52px; line-height: 1.14; font-weight: 900; letter-spacing: 0; }
     .lead { font-size: 34px; line-height: 1.55; color: var(--muted); font-weight: 500; }
     .small { font-size: 23px; line-height: 1.5; color: var(--muted); }
     .accent-line { width: 530px; height: 10px; background: linear-gradient(90deg, var(--teal), #86bfc8, var(--orange)); }
@@ -217,11 +217,20 @@
     .stat strong { display: block; margin-bottom: 10px; font-size: 38px; line-height: 1; font-weight: 900; }
     .stat span { font-size: 20px; line-height: 1.35; color: var(--muted); font-weight: 500; }
 
-    .model-slide .stat { min-height: 126px; padding-top: 18px; }
-    .model-slide .stat strong { font-size: 28px; line-height: 1.14; }
-    .model-slide .stat span { font-size: 18px; line-height: 1.34; }
-    .model-chart { height: 520px !important; margin-top: 22px !important; }
-    .model-chart img { padding: 0 !important; }
+    .model-slide .stat { min-height: 118px; padding-top: 16px; }
+    .model-slide .stat strong { font-size: 30px; line-height: 1.12; }
+    .model-slide .stat span { font-size: 18px; line-height: 1.32; }
+    .model-slide .lead { font-size: 31px; line-height: 1.5; }
+    .model-chart {
+      height: 610px !important;
+      margin-top: 22px !important;
+      border-top: 4px solid var(--teal);
+      box-shadow: 0 30px 76px rgba(36,72,94,.14);
+    }
+    .model-chart img {
+      padding: 10px !important;
+      filter: contrast(1.24) saturate(1.08);
+    }
 
     .xgb-slide .split { grid-template-columns:560px 1fr; gap:64px; }
     .xgb-legend {
@@ -263,11 +272,11 @@
       padding: 18px;
     }
 
-    .erd-slide .split { grid-template-columns:520px 1fr; gap:58px; }
+    .erd-slide .split { grid-template-columns:430px 1fr; gap:42px; }
     .erd-notes {
       display: grid;
-      gap: 16px;
-      margin-top: 30px;
+      gap: 14px;
+      margin-top: 26px;
     }
     .erd-note {
       border-top: 4px solid var(--teal);
@@ -288,17 +297,19 @@
       font-weight: 600;
     }
     .erd-frame {
-      height: 680px;
-      background: #050708;
-      border: 1px solid #2f93c7;
-      box-shadow: 0 26px 78px rgba(36,72,94,.16);
+      height: 740px;
+      background: rgba(255,255,255,.88);
+      border: 1px solid #bed1da;
+      border-top: 4px solid var(--teal);
+      box-shadow: 0 26px 78px rgba(36,72,94,.14);
+      overflow: hidden;
     }
     .erd-frame img {
       width: 100%;
       height: 100%;
       object-fit: contain;
       display: block;
-      padding: 12px;
+      padding: 0;
     }
 
     .demo-video-frame {
@@ -310,9 +321,38 @@
       height: 410px;
       display: grid;
       place-items: center;
-      border: 1px dashed #8fb4c2;
-      background: rgba(255,255,255,.72);
+      border: 1px solid #bed1da;
+      background:
+        linear-gradient(90deg, rgba(11,136,168,.08) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(11,136,168,.08) 1px, transparent 1px),
+        rgba(255,255,255,.82);
+      background-size: 46px 46px;
       box-shadow: 0 24px 70px rgba(36,72,94,.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .video-slot::before {
+      content: "";
+      width: 112px;
+      height: 112px;
+      border-radius: 999px;
+      border: 3px solid var(--teal);
+      background: rgba(255,255,255,.86);
+      position: absolute;
+      left: 50%;
+      top: 45%;
+      transform: translate(-50%, -50%);
+    }
+    .video-slot::after {
+      content: "";
+      position: absolute;
+      left: calc(50% - 12px);
+      top: calc(45% - 26px);
+      width: 0;
+      height: 0;
+      border-top: 26px solid transparent;
+      border-bottom: 26px solid transparent;
+      border-left: 40px solid var(--orange);
     }
     .video-slot strong {
       display: block;
@@ -321,6 +361,7 @@
       font-weight: 900;
       margin-bottom: 12px;
       text-align: center;
+      padding-top: 168px;
     }
     .video-slot span {
       color: var(--muted);
@@ -330,7 +371,7 @@
     }
     .video-meta {
       display: grid;
-      grid-template-columns: 1fr 220px;
+      grid-template-columns: 1fr 250px;
       gap: 24px;
       margin-top: 24px;
       align-items: start;
@@ -350,6 +391,17 @@
       color: var(--ink);
       font-size: 26px;
       font-weight: 900;
+    }
+    .qr-placeholder {
+      width: 116px;
+      height: 116px;
+      margin-top: 10px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed #8fb4c2;
+      background: rgba(255,255,255,.78);
+      color: #8ca2ad;
+      font: 700 20px/1 var(--mono);
     }
 
     .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -758,7 +810,7 @@
 
       <section class="slide model-slide" data-page="12 / 20">
         <div class="topline"><span>10 모델 선택</span><span>정확도뿐 아니라 안정성을 함께 봅니다</span></div>
-        <div class="split" style="grid-template-columns:500px 1fr; gap:54px;">
+        <div class="split" style="grid-template-columns:450px 1fr; gap:46px;">
           <div>
             <div class="label">MODEL DECISION</div>
             <h2 class="title-lg" style="margin-top: 34px;">최종 모델은 정확도만이 아니라 안정성으로 결정했습니다.</h2>
@@ -818,7 +870,7 @@
               <div class="erd-note"><h3>작업 관리</h3><p>ANALYSIS_JOBS가 요청 상태와 완료 저장 흐름을 관리합니다.</p></div>
             </div>
           </div>
-          <figure class="erd-frame"><img src="assets/erd-diagram.png" alt="SmartDrain ERD 다이어그램"></figure>
+          <figure class="erd-frame"><img src="assets/erd-diagram-light.png" alt="SmartDrain ERD 다이어그램"></figure>
         </div>
       </section>
 
@@ -860,12 +912,12 @@
             <div class="video-slot">
               <div>
                 <strong>YouTube Demo</strong>
-                <span>영상 썸네일 또는 임베드 이미지 자리</span>
+                <span>최종 시연 영상 썸네일 또는 임베드 자리</span>
               </div>
             </div>
             <div class="video-meta">
               <div class="url-box"><strong>URL</strong>최종 YouTube 시연 영상 링크 입력 예정</div>
-              <div class="qr-box"><strong>QR</strong>영상 QR 코드 배치 예정</div>
+              <div class="qr-box"><strong>QR</strong>영상 QR 코드 배치 예정<div class="qr-placeholder">QR</div></div>
             </div>
           </div>
         </div>
